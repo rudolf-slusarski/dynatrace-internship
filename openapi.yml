@@ -1,0 +1,165 @@
+openapi: "3.0.5"
+info:
+  title: "Dynatrace Backend Internship Task 2023"
+  description: "API for retrieving exchange rates from the National Bank of Poland"
+  version: "1.0.0"
+  contact:
+    email: "rudolf.slusarski@gmail.com"
+  license:
+    name: "GNU General Public License v3.0"
+    url: "https://www.gnu.org/licenses/gpl-3.0.en.html"
+tags:
+  - name: "NBP API"
+paths:
+  /average_exchange_rate:
+    get:
+      tags: ["NBP API"]
+      parameters:
+        - name: "currency_code"
+          in: "query"
+          description: "The three-letter currency code (e.g. USD, EUR)"
+          required: true
+          schema:
+            type: "string"
+            example: "USD"
+        - name: "date"
+          in: "query"
+          description: "The date to get the exchange rate for (in YYYY-MM-DD format)"
+          required: true
+          schema:
+            type: "string"
+            example: "2023-01-02"
+      responses:
+        200:
+          description: "Returns the average exchange rate for the given currency code and date"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  rate:
+                    type: "number"
+                    example: 4.4
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  error:
+                    type: "string"
+                    example: "currency_code must be a valid three-letter currency code"
+        404:
+          description: "Data not found"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  error:
+                    type: "string"
+                    example: "no data found for the given date and currency code"
+
+  /max_min_average:
+    get:
+      tags: ["NBP API"]
+      parameters:
+        - name: "currency_code"
+          in: "query"
+          description: "The three-letter currency code (e.g. USD, EUR)"
+          required: true
+          schema:
+            type: "string"
+            example: "GBP"
+        - name: "count"
+          in: "query"
+          description: "The number of days to get the exchange rates for (default: 1)"
+          required: false
+          schema:
+            type: "integer"
+            example: 5
+      responses:
+        200:
+          description: "Returns the maximum and minimum exchange rates for the given currency code and count"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  max_rate:
+                    type: "number"
+                    example: 5.5
+                  min_rate:
+                    type: "number"
+                    example: 5.4
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  error:
+                    type: "string"
+                    example: "currency_code must be a valid three-letter currency code"
+        404:
+          description: "Data not found"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  error:
+                    type: "string"
+                    example: "no data found for the given currency code and count"
+
+  /major_difference:
+    get:
+      tags: ["NBP API"]
+      parameters:
+        - name: "currency_code"
+          in: "query"
+          description: "The three-letter currency code (e.g. USD, EUR)"
+          required: true
+          schema:
+            type: "string"
+            example: "EUR"
+        - name: "count"
+          in: "query"
+          description: "The number of days to get the exchange rates for (default: 1)"
+          required: false
+          schema:
+            type: "integer"
+            example: 5
+      responses:
+        200:
+          description: "Returns the major difference between the bid and ask exchange rates for the given currency code and count"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  major_difference:
+                    type: "number"
+                    example: 0.05
+        400:
+          description: "Bad request"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  error:
+                    type: "string"
+                    example: "currency_code must be a valid three-letter currency code"
+        404:
+          description: "Data not found"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  error:
+                    type: "string"
+                    example: "no data found for the given currency code and count"
