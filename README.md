@@ -2,9 +2,10 @@
 
 ## Usage
 
+* First, install the dependencies with ```pip install -r requirements.txt```
 * Run the server with ```python3 app.py```
 * As per Flask default, debug mode is on. To run the server without it, use ```flask run```
-* Further api specification under ```http://localhost:5000/```
+* Further api specification will be available under ```http://localhost:5000/```
 * Run the unit tests with ```pytest```
 
 Example queries for the required operations:

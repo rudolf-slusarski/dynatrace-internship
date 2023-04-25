@@ -39,7 +39,6 @@ def get_max_min_average(currency_code, count) -> dict:
 
 
 def get_major_difference(currency_code, count) -> dict:
-
     url = f'{NBP_API_URL}/exchangerates/rates/c/{currency_code}/last/{count}/?format=json'
     response = requests.get(url)
 
