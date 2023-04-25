@@ -13,7 +13,7 @@ def get_average_exchange_rate(currency_code, date) -> dict:
                 'code': 404}
 
     if response.status_code != 200:
-        return {'msg': {'error': 'unknown error from source'},
+        return {'msg': {'error': 'unknown error'},
                 'code': response.status_code}
 
     return {'msg': {'rate': response.json()['rates'][0]['mid']},
